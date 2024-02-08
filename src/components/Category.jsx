@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
+// React Rating
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
+
+
 const Category = () => {
     const [tabIndex, setTabIndex] = useState(0);
     const [toys, setToys] = useState([]);
@@ -18,6 +23,8 @@ const Category = () => {
 
     return (
         <div className='w-[90%] m-auto'>
+            <h2 className='text-center text-3xl mt-10 mb-5'>Shop by Category</h2>
+            <h2 className='text-center text-lg 0 mb-5 italic text-[#a3174f]'>Chose your favourite Action Figure</h2>
             <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                 <TabList>
                     <Tab>Male SuperHero</Tab>
@@ -25,17 +32,17 @@ const Category = () => {
                     <Tab>Female SuperHero</Tab>
                 </TabList>
                 <TabPanel>
-                    <div className='w-[50%]'>
+                    <div className='w-[100%] grid sm:grid-cols-1 md:grid-cols-2'>
                         {hero.map(toy => <Card key={toy.id} toy={toy}></Card>)}
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className="w-[50%]">
+                    <div className="w-[100%] grid sm:grid-cols-1 md:grid-cols-2">
                         {villan.map(toy => <Card key={toy.id} toy={toy}></Card>)}
                     </div>
                 </TabPanel>
                 <TabPanel>
-                    <div className='w-[50%]'>
+                    <div className='w-[100%] grid sm:grid-cols-1 md:grid-cols-2'>
                         {female.map(toy => <Card key={toy.id} toy={toy}></Card>)}
                     </div>
                 </TabPanel>
@@ -54,8 +61,9 @@ function Card({ toy }) {
                 <h2 className="card-title font-bold italic text-2xl">{toy.name}</h2>
                 <h4 className='flex text-lg text-[#a3174f]'>{toy.price}</h4>
                 <p>{toy.description}</p>
+                <Rating style={{ maxWidth: 120 }}  readOnly value={toy.rating} className="mt-2"/>
                 <div className="card-actions justify-start">
-                    <button className="btn btn-primary bg-[#a3174f] px-10 mt-10">View Details</button>
+                    <button className="btn btn-primary bg-[#a3174f] px-10 mt-7">View Details</button>
                 </div>
             </div>
         </div>
