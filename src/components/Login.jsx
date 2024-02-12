@@ -1,58 +1,45 @@
-// import React, { useState } from 'react';
-// import { getAuth } from "firebase/auth";
-// import app from './../firebase/firebase.config';
-// import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-
-// import { getAuth } from "firebase/auth";
-// import app from './../firebase/firebase.config';
-// import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-// import { useState } from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { getAuth } from "firebase/auth";
+import app from './../firebase/firebase.config';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
+import { GithubAuthProvider } from "firebase/auth";
+
 
 const Login = () => {
 
-    // const auth = getAuth(app);
-    // const provider = new GoogleAuthProvider();
-    // const [user, setUser] = useState(null);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+    const gitprovider = new GithubAuthProvider();
 
-    // const handleGoogleSignIn = () => {
-    //     signInWithPopup(auth, provider)
-    //         .then((result) => {
-    //             const loggedInUser = result.user;
-    //             console.log(user);
-    //             setUser(loggedInUser);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error.message);
-    //         })
-    // }
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
-    // const handleSignOut = () => {
-    //     signOut(auth)
-    //     .then(result => {
-    //         setUser(null);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error.message);
-    //     })
-    // }
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const loggedInUser = result.user;
+                console.log(loggedInUser);
+                navigate(from, {replace: true})
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+    }
 
-    // const auth = getAuth(app);
-    // const provider = new GoogleAuthProvider();
-    // const [user, setUser] = useState(null);
-
-    // const googleSignIn = () => {
-    //     signInWithPopup(auth, provider)
-    //     .then((result) => {
-    //         const loggedInUser = result.user;
-    //         console.log(loggedInUser);
-    //         setUser(loggedInUser);
-    //     })
-    //     .catch((error) => {
-    //         console.log(error.message);
-    //     })
-    // }
+    const githubLogin = () => {
+        signInWithPopup(auth, gitprovider)
+        .then(result => { 
+            const credential = result.user;
+            console.log(credential);
+            navigate(from, {replace: true})
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }
 
     return (
         <div>
@@ -76,12 +63,18 @@ const Login = () => {
                             </div>
                             <label className="label my-0">
                                 <p>Don't have an account? <Link to="/registration" className="text-[#1d28ba]">Register</Link><br /></p>
+                                <br></br>
                             </label>
-                            <button className='btn bg-white  my-2 text-black'><Icon icon="mdi:github" color="black" width="37" height="37" />  Login using Github</button>
-                            <button className='btn bg-white my-2 text-black'><Icon icon="flat-color-icons:google" color="white" width="34" height="34" />  Login using Google</button>
+                            <label className="label my-0">
+                                <p className='text-center'>OR</p>
+                            </label>
+
                         </div>
 
                     </form>
+                    
+                    {/* <button onClick={githubLogin} className='btn bg-white  my-2 text-black w-[80%] m-auto'><Icon icon="mdi:github" color="black" width="37" height="37" />  Login using Github</button> */}
+                    <button onClick={handleGoogleSignIn} className='btn bg-white my-2 text-black m-auto w-[80%]'><Icon icon="flat-color-icons:google" color="white" width="34" height="34" />  Login using Google</button>
                 </div>
 
             </div>

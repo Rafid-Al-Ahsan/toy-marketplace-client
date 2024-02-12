@@ -6,6 +6,10 @@ import {
   } from "react-router-dom";
 import Login from '../components/Login';
 import Registration from '../components/Registration';
+import Addtoy from '../components/Addtoy';
+import PrivateRoute from './PrivateRoute';
+import Mytoy from '../components/Mytoy';
+import Alltoy from '../components/Alltoy';
 
 const Routes = createBrowserRouter([
     {
@@ -23,7 +27,19 @@ const Routes = createBrowserRouter([
         {
             path: "/registration",
             element:<Registration></Registration>
-        }
+        },
+        {
+            path: "/alltoy",
+            element: <Alltoy></Alltoy>
+        },
+        {
+            path: "/addtoy",
+            element:<PrivateRoute><Addtoy></Addtoy></PrivateRoute>
+        },
+        {
+            path: "/mytoy",
+            element:<PrivateRoute><Mytoy></Mytoy></PrivateRoute>
+        },
       ]
     },
 
