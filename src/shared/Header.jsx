@@ -1,9 +1,22 @@
 import React from 'react';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../routes/AuthProvider';
 
 const Header = () => {
+
+    const { user, logout } = useContext(AuthContext);
+    console.log(logout);
+
+    const handleLogOut = () => {
+        logout()
+        .then()
+        .catch((error) => console.error(error.message))
+    }
+
     return (
         <div>
-            <div className="navbar bg-base-100 bg-black text-white">
+            <div className="navbar bg-black text-white">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -19,13 +32,13 @@ const Header = () => {
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li className='font-bold text-lg'><a>Home</a></li>
+                        <li className='font-bold text-lg'><Link to="/">Home</Link></li>
                         <li className='font-bold text-lg'><a>All Toys</a></li>
                         <li className='font-bold text-lg'><a>Blog</a></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn bg-[#a3174f] px-8 rounded-full font-bold text-lg mr-10">Login</a>
+                    {user ? <button onClick={handleLogOut} className="btn btn-active bg-[#a3174f] px-8 rounded-full font-bold text-lg mr-10">Logout</button> : <Link to='login' className="btn bg-[#a3174f] px-8 rounded-full font-bold text-lg mr-10">Login</Link>}
                 </div>
             </div>
         </div>
