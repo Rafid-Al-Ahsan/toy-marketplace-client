@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import { Link } from 'react-router-dom';
 
 // React Rating
 import { Rating } from '@smastrom/react-rating'
@@ -63,7 +64,7 @@ function Card({ toy }) {
                 <p>{toy.description}</p>
                 <Rating style={{ maxWidth: 120 }}  readOnly value={toy.rating} className="mt-2"/>
                 <div className="card-actions justify-start">
-                    <button className="btn btn-primary bg-[#a3174f] px-10 mt-7">View Details</button>
+                   <Link to={`herodetails/${toy.id}`}><button className="btn btn-primary bg-[#a3174f] px-10 mt-7">View Details</button></Link>
                 </div>
             </div>
         </div>

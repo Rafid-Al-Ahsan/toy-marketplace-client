@@ -6,7 +6,7 @@ import img4 from "./../assets/Hulk2.png"
 import img5 from "./../assets/client.jpg"
 import img6 from "./../assets/Scarlet witch.png"
 import img7 from "./../assets/iron man.jpg"
-import img8 from "./../assets/spider man.png"
+import img8 from "./../assets/spidy.png"
 import img9 from "./../assets/bucky.jpg"
 import img10 from "./../assets/antman.jpg"
 

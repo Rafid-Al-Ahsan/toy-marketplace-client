@@ -10,6 +10,7 @@ const Registration = () => {
     //For giving succes or error msg after clicking registration btn
     const [error , setError] = useState('');
     const [success , setSuccess] = useState('');
+    
 
     const { createUser } = useContext(AuthContext);
     console.log(createUser);
@@ -28,7 +29,11 @@ const Registration = () => {
         createUser(email, password)
             .then((result) => {
                 const createUser = result.user;
-                console.log(createUser);
+                updateProfile(createUser, { photoURL: photo, displayName: name })
+                .then(() => {})
+                .catch((updateError) => {
+                  setError(updateError);
+                });
                 event.target.reset();
                 setSuccess("User created successfully")
             })
@@ -87,7 +92,7 @@ const Registration = () => {
                             <label className="label">
                                 <span className="label-text">Photo URL</span>
                             </label>
-                            <input type="email" name="photo" placeholder="photo url" className="input input-bordered" />
+                            <input type="text" name="photo" placeholder="photo url" className="input input-bordered" />
                         </div>
                         <div className="form-control">
                             <label className="label">
